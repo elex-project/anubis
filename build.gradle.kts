@@ -6,8 +6,8 @@ plugins {
 }
 
 group = "com.elex-project"
-version = "1.0-SNAPSHOT"
-description = ""
+version = "1.1.0"
+description = "Libraries to calculate Sun and Moon"
 
 repositories {
 	maven {
@@ -32,12 +32,12 @@ configurations {
 }
 
 tasks.jar {
-	manifest { // todo
+	manifest {
 		attributes(mapOf(
 				"Implementation-Title" to project.name,
 				"Implementation-Version" to project.version,
 				"Implementation-Vendor" to "ELEX co.,pte.",
-				"Automatic-Module-Name" to "com.elex_project.${project.name}"
+				"Automatic-Module-Name" to "com.elex_project.anubis"
 		))
 	}
 }
@@ -69,20 +69,16 @@ publishing {
 		create<MavenPublication>("mavenJava") {
 			from(components["java"])
 			pom {
-				// todo
-				name.set(project.name)
+				name.set("Anubis")
 				description.set(project.description)
-				url.set("https://")
-				year.set("2021")
+				url.set("https://github.com/elex-project/anubis")
 				properties.set(mapOf(
-						"myProp" to "value",
-						"prop.with.dots" to "anotherValue"
+						"year" to "2021"
 				))
 				licenses {
 					license {
-						// todo
 						name.set("BSD 3-Clause License")
-						url.set("licenseUrl")
+						url.set("https://github.com/elex-project/anubis/blob.main/LICENSE")
 					}
 				}
 				developers {
@@ -93,10 +89,9 @@ publishing {
 					}
 				}
 				scm {
-					// todo
-					connection.set("scm:git:https://github.com/my-library.git")
-					developerConnection.set("scm:git:https://github.com/my-library.git")
-					url.set("https://github.com/my-library/")
+					connection.set("scm:git:https://github.com/elex-project/anubis.git")
+					developerConnection.set("scm:git:https://github.com/elex-project/anubis.git")
+					url.set("https://github.com/elex-project/anubis")
 				}
 			}
 		}
@@ -114,9 +109,9 @@ publishing {
 				password = project.findProperty("repo.password") as String
 			}
 		}
-		maven { //todo
+		maven {
 			name = "mavenGithub"
-			url = uri("https://maven.pkg.github.com/elex-project/tmpl-java-library")
+			url = uri("https://maven.pkg.github.com/elex-project/anubis")
 			credentials {
 				username = project.findProperty("github.username") as String
 				password = project.findProperty("github.token") as String
@@ -129,6 +124,9 @@ dependencies {
 	implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 	implementation("org.slf4j:slf4j-api:1.7.30")
 	implementation("org.jetbrains:annotations:20.1.0")
+
+	implementation("com.elex-project:abraxas:4.0.2")
+	implementation("net.e175.klaus:solarpositioning:0.0.9")
 
 	compileOnly("org.projectlombok:lombok:1.18.16")
 	annotationProcessor("org.projectlombok:lombok:1.18.16")
